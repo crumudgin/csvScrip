@@ -1,10 +1,9 @@
-"""
-Program: CSV Script
-Description: generates a .csv file for the intelligent systems project 2
-author: Zac Chu
-usage: when prompted give the script the path to your first set of .stat files, then give it the path
-       to your seccond set of .stat files, continue with this for all .stat file locations
-"""
+# Program: CSV Script
+# Description: generates a .csv file for the intelligent systems project 2
+# author: Zac Chu
+# usage: when prompted give the script the path to your first set of .stat files, then give it the path
+#        to your seccond set of .stat files, continue with this for all .stat file locations
+
 
 import csv
 import os
@@ -15,19 +14,17 @@ class CVSScript:
     test = []
 
 
-"""
-generates an array of all files within a directory
-peramiters: path - the path to the folder
-"""
+
+# generates an array of all files within a directory
+# peramiters: path - the path to the folder
     def readFolderIntoArray(self, path):
         for (path, dirnames, filenames) in os.walk(path):
             self.files.extend(os.path.join(path, name) for name in filenames)
 
-"""
-adds the correctly classified value to an array of results
-peramiters: file - the file with the data
-            dataset - an integer representing a dataset
-"""
+
+# adds the correctly classified value to an array of results
+# peramiters: file - the file with the data
+#             dataset - an integer representing a dataset
     def addFileContentToArrays(self, file, dataset):
         found = False
         with open(file, newline='') as inputfile:
@@ -41,9 +38,7 @@ peramiters: file - the file with the data
                     else:
                         self.test[dataset].append(content[i+1])
 
-"""
-driver of the script
-"""
+# driver of the script
     def run(self):
         path = input('path to stat files: ')
         self.readFolderIntoArray(path)
@@ -59,6 +54,9 @@ driver of the script
         with open("output.csv",'w') as resultFile:
             wr = csv.writer(resultFile, dialect='excel')
             wr.writerows(self.train)
+        with open("test.csv", 'w') as resultFile:
+            wr = csv.writer(resultFile, dialect='excel')
+            wr.writerows(self.test)
 
 
 def main():
