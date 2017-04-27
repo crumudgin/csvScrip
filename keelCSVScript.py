@@ -33,10 +33,10 @@ class CVSScript:
             for i,item in enumerate(content):
                 if item == 'Correctly classified:':
                     if found == False:
-                        self.train[dataset].append(content[i+1])
+                        self.test[dataset].append(content[i+1])
                         found = True
                     else:
-                        self.test[dataset].append(content[i+1])
+                        self.train[dataset].append(content[i+1])
 
 # driver of the script
     def run(self):
@@ -51,12 +51,12 @@ class CVSScript:
                 self.addFileContentToArrays(data, i)
             print(self.train)
             path = input('path to stat files')
-        with open("output.csv",'w') as resultFile:
-            wr = csv.writer(resultFile, dialect='excel')
-            wr.writerows(self.train)
-        with open("test.csv", 'w') as resultFile:
+        with open("test.csv",'w') as resultFile:
             wr = csv.writer(resultFile, dialect='excel')
             wr.writerows(self.test)
+        with open("train.csv", 'w') as resultFile:
+            wr = csv.writer(resultFile, dialect='excel')
+            wr.writerows(self.train)
 
 
 def main():
